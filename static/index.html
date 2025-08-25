@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <title>Auto-Monitoring Dashboard</title>
+  <link rel="stylesheet" href="globals.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-section">
+        <img class="logo" src="src/gspe.png" alt="Logo" />
+        <div class="company-name">Auto-Monitoring System</div>
+      </div>
+      
+      <h1 class="welcome-title">Welcome to Dashboard</h1>
+      
+      <div class="header-right">
+        <div class="datetime">
+          <div class="time" id="current-time">15:23:00</div>
+          <div class="date" id="current-date">20 August 2025</div>
+        </div>
+        <div class="user-actions">
+          <button class="icon-btn" id="notifications-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell-icon lucide-bell"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
+            <!-- <img src="src/cctv.png" alt="Notifications" /> -->
+          </button>
+          <button class="icon-btn" id="setting-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+            <!-- <img src="src/gspe.png" alt="Setting" /> -->
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <button class="nav-item active" data-section="cctv">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cctv-icon lucide-cctv"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg>
+        <!-- <img src="src/CCTVButton.png" alt="CCTV" /> -->
+        <span>CCTV</span>
+      </button>
+      <button class="nav-item" data-section="report">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-chart-column-icon lucide-file-chart-column"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 18v-1"/><path d="M12 18v-6"/><path d="M16 18v-3"/></svg>
+        <!-- <img src="src/ReportButton.png" alt="Report" /> -->
+        <span>Report</span>
+      </button>
+      <div class="sidebar-footer">
+        <div class="copyright">Copyright @ PT GSPE</div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Live CCTV Feed -->
+      <section class="cctv-feed">
+        <div class="section-header">
+          <h2>Live CCTV Feed</h2>
+          <div class="ai-status" id="ai-status">
+            <div class="status-indicator" id="ai-indicator"></div>
+            <span id="ai-status-text">AI Inference: Stopped</span>
+          </div>
+        </div>
+        <div class="video-container" id="video-container">
+          <div class="video-placeholder" id="video-placeholder">
+            <span>LIVE CCTV CAM</span>
+            <div class="loading-spinner" id="loading-spinner" style="display: none;"></div>
+          </div>
+          <!-- Face Recognition Stream will be inserted here by JavaScript -->
+          <div class="video-stream-container">
+            <img id="face-recognition-stream" class="video-stream" />
+          </div>
+          <!-- Fullscreen toggle button -->
+          <button class="fullscreen-toggle" id="fullscreen-toggle" title="Toggle Fullscreen">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- CCTV Camera Controls -->
+      <section class="camera-controls">
+        <h2>CCTV CAM</h2>
+        <div class="camera-buttons" id="camera-buttons">
+          <!-- Camera buttons will be populated by backend -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Employee Tracking Panel -->
+    <aside class="employee-panel">
+      <div class="panel-header">
+        <h2>Employee Tracking</h2>
+        <div class="active-count" id="active-count">0 Active</div>
+      </div>
+      
+      <div class="employee-list" id="employee-list">
+        <!-- Employee entries will be populated by backend -->
+      </div>
+      
+      <div class="employee-stats">
+        <div class="stat-item">
+          <div class="stat-number" id="present-count">0</div>
+          <div class="stat-label">Present</div>
+        </div>
+        <div class="stat-item alert">
+          <div class="stat-number" id="alert-count">0</div>
+          <div class="stat-label">Alerts</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="total-count">0</div>
+          <div class="stat-label">Total</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/camera-manager.js"></script>
+  <script src="js/employee-manager.js"></script>
+  <script src="js/face-recognition.js"></script>
+  <script src="js/dashboard.js"></script>
+  
+  <!-- Add WebSocket support -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</body>
+</html>
